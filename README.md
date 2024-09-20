@@ -160,7 +160,7 @@ Output:
 
   Ouput:
 
-  ![](result8.png)
+  ![](output8.png)
 
      
 9.What are the most common app versions on the Google Play Store?
