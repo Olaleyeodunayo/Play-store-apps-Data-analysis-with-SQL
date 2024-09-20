@@ -2,17 +2,27 @@
 
 ![](image_intro.png)
 
-## Quick overview
+# Table of content
+- Quick overview
+- Key features
+- Research questions
+- Goals aimed to achieve
+- Disclaimer
+- SQL query and output
+
+  
+
+### Quick overview
 Welcome to the Play Store Analysis project! This repository showcases a comprehensive analysis of app data from the Google Play Store using SQL. By leveraging a rich dataset, the project aims to uncover insights related to app performance, user ratings, and versions in various categories. All key feautures and research questions were 
 
 
 
-## Key features of this analysis include
+### Key features of this analysis include
 - Data Exploration: Initial exploration of app attributes, including ratings, downloads, and categories.
 - Trends and Patterns: Identification of trends in user preferences and app popularity over time.
 - Comparative Analysis: Comparison of top-performing apps to understand what drives success in the Play Store.
 
-  ## Research questions
+  ### Research questions
   1. which is the app has the highest number of installation?
   2. which are the top 10 apps with lowest number on installation?
   3. what are the most installed app in various categories?
@@ -24,7 +34,7 @@ Welcome to the Play Store Analysis project! This repository showcases a comprehe
   9. What are the most common app versions on the Google Play Store?
   10. What are the factores influencing top installed app and least installed app.
 
- ## Goals this project aims to achieve
+ ### Goals this project aims to achieve
  
  The primary goal of this research project is to analyze app data from the Google Play Store to uncover trends and insights that inform developers and stakeholders about app performance and user preferences. By addressing the research questions, we aim to
  
@@ -38,7 +48,7 @@ Ultimately, this analysis seeks to enhance the understanding of the mobile app l
  ### Disclaimer: 
  The data presented in this analysis is based on research and publicly available information from the Google Play Store. The datasets used are not curated by me and may contain inaccuracies or discrepancies. The insights drawn from this data are intended for informational purposes only and should be interpreted with caution.
 
- ## SQL query and Ouput
+ ### SQL query and Ouput
 
  1.which is the app has the highest number of installation?
  This question aims to identify the app with the greatest number of installations, providing insights into its popularity and user acceptance.
@@ -132,6 +142,8 @@ Output:
    Output:
 
    ![](result6.png)
+   
+
 
 7.Does the app version affect the number of installations?
 
@@ -146,6 +158,7 @@ Output:
  Output:
 
  ![](result7.png)
+ This query shows that the average number of installations for each app version, which will allow us to see if certain versions are associated with higher installations.
 
     
 8.What are the most popular app categories by reviews ?
@@ -160,7 +173,7 @@ Output:
 
   Ouput:
 
-  ![](output8.png)
+  ![](result8.png)
 
      
 9.What are the most common app versions on the Google Play Store?
@@ -175,7 +188,48 @@ Output:
 Output:
 
 ![](result9.png)
-      
 
+10. What are the factors influencing top installed and least installed app
+    Here, i ran a query that selects only the category, ratings, reviews, size, installs and current version for both dataset(top installed and least installed.
+    From this result, we can gather insights into what makes some apps more installed than others.
+
+    Top installed app
+
+        WITH TopInstalledApps AS (
+        SELECT 
+        *,
+        CAST(REPLACE(REPLACE(CAST(Installs AS VARCHAR), '+', ''), ',', '') AS INTEGER) AS Installs_Cleaned
+        FROM 'Google_playstore_apps.csv'
+        WHERE CAST(REPLACE(REPLACE(CAST(Installs AS VARCHAR), '+', ''), ',', '') AS INTEGER) >= (
+        SELECT PERCENTILE_CONT(0.90) WITHIN GROUP (ORDER BY CAST(REPLACE(REPLACE(CAST(Installs AS VARCHAR), '+', ''), ',', '') AS INTEGER))
+        FROM 'Google_playstore_apps.csv'
+        )
+        )
+        SELECT Category, Rating, Reviews, Size,Installs, Current_Ver
+        FROM TopInstalledApps
+        WHERE Rating > 3.6
+        ORDER BY App DESC
+
+Least installed app
+
+      WITH LeastInstalledApps AS (
+      SELECT 
+        *,
+        CAST(REPLACE(REPLACE(CAST(Installs AS VARCHAR), '+', ''), ',', '') AS INTEGER) AS Installs_Cleaned
+        FROM 'Google_playstore_apps.csv'
+        WHERE CAST(REPLACE(REPLACE(CAST(Installs AS VARCHAR), '+', ''), ',', '') AS INTEGER) <= (
+        SELECT PERCENTILE_CONT(0.10) WITHIN GROUP (ORDER BY CAST(REPLACE(REPLACE(CAST(Installs AS VARCHAR), '+', ''), ',', '') AS INTEGER))
+        FROM 'Google_playstore_apps.csv'
+        )
+        )
+        SELECT Category, Rating, Reviews, Size, Installs, Current_Ver
+        FROM LeastInstalledApps
+        WHERE Rating < 3.5
+        ORDER BY App DESC
+	
+Output:
+
+Top installed app            |     Least installed app
+:...........................:|:........................:
   
       
