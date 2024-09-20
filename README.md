@@ -9,11 +9,12 @@
 - Goals aimed to achieve
 - Disclaimer
 - SQL query and output
+- Business Insights and conclusion
 
   
 
 ### Quick overview
-Welcome to the Play Store Analysis project! This repository showcases a comprehensive analysis of app data from the Google Play Store using SQL. By leveraging a rich dataset, the project aims to uncover insights related to app performance, user ratings, and versions in various categories. All key feautures and research questions were 
+Welcome to the Play Store Analysis project! This repository showcases a comprehensive analysis of app data from the Google Play Store using SQL. By leveraging a rich dataset, the project aims to uncover insights related to app performance, user ratings, and versions in various categories. All key feautures and research questions were developed by myself.
 
 
 
@@ -22,7 +23,7 @@ Welcome to the Play Store Analysis project! This repository showcases a comprehe
 - Trends and Patterns: Identification of trends in user preferences and app popularity over time.
 - Comparative Analysis: Comparison of top-performing apps to understand what drives success in the Play Store.
 
-  ### Research questions
+### Research questions
   1. which is the app has the highest number of installation?
   2. which are the top 10 apps with lowest number on installation?
   3. what are the most installed app in various categories?
@@ -36,7 +37,7 @@ Welcome to the Play Store Analysis project! This repository showcases a comprehe
 
  ### Goals this project aims to achieve
  
- The primary goal of this research project is to analyze app data from the Google Play Store to uncover trends and insights that inform developers and stakeholders about app performance and user preferences. By addressing the research questions, we aim to
+ The primary goal of this research project is to analyze app data from the Google Play Store to uncover trends and insights that inform developers and stakeholders about app performance and user preferences. By addressing the research questions, we aim to:
  
 - Identify key factors influencing app installations and ratings.
 - Understand the dynamics of app popularity across different categories.
@@ -193,7 +194,7 @@ Output:
     Here, i ran a query that selects only the category, ratings, reviews, size, installs and current version for both dataset(top installed and least installed.
     From this result, we can gather insights into what makes some apps more installed than others.
 
-    Top installed app
+Top installed app
 
         WITH TopInstalledApps AS (
         SELECT 
@@ -229,7 +230,17 @@ Least installed app
 	
 Output:
 
-Top installed app            |     Least installed app
-:...........................:|:........................:
-  
-      
+| Top Installed App               | Least Installed App             |
+|:--------------------------------:|:--------------------------------:|
+| ![](topinstall.png)             | ![](leastinstall.png)             |
+
+From the ouput, it is safe to say that the ratings, reviews, size,  and current version directly impact app installation. The topinstalled app has better ratings, more reviews, better size and current version which impacted the number of downlaods from users.
+
+### Business Insights and conclusion
+From the analysis, here are few business lesson App owners and intending app owners should note
+- Focus development efforts on the most popular categories to maximize users reach and potential downloads.
+- Allocate resources to develop appds in categories with the hihest number of apps , as this indicated high user interest and demand.
+- Optimize app development for the most frequently used versions to ensure smooth performance and user experience
+- Ensure apps are compatible with the most common versions in order to avoid losing users due to compatibility issues
+- Develop apps in categories that have high average raings , as these are categories that are likely to have more satisfied users and better app performance
+- Lastly, app owners that their apps have good rating should keep on improving on their standards.
